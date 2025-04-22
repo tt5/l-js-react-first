@@ -1,5 +1,6 @@
 import React, { useState, useCallback, memo } from "react";
 import { createContext, useContextSelector } from "use-context-selector";
+import { RadioGroup } from "./radioGroup.jsx";
 
 const DarkModeContext = createContext({});
 
@@ -50,11 +51,26 @@ function Main() {
     minHeight: "100vh",
     boxSizing: "border-box",
   };
+  const [data, setData] = useState({
+    some: "",
+    more: "",
+  });
+  const onChange = (name) => (value) => setData({ ...data, [name]: value });
 
   return (
     <main style={style}>
       <Header />
       <h1>Hello</h1>
+      <RadioGroup
+        name="some"
+        options={["one", "two"]}
+        onChange={onChange("some")}
+      />
+      <RadioGroup
+        name="more"
+        options={["one", "two"]}
+        onChange={onChange("more")}
+      />
     </main>
   );
 }
