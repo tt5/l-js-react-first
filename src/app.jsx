@@ -1,6 +1,6 @@
 import React, { useState, useCallback, memo } from "react";
 import { createContext, useContextSelector } from "use-context-selector";
-import { RadioGroup } from "./radioGroup.jsx";
+import { RadioGroup } from "./radiogroup";
 
 const DarkModeContext = createContext({});
 
