@@ -1,13 +1,23 @@
 import React, { useState } from "react";
+import {RadioGroupContext} from "./contexts"
+import {Option} from "./Option"
+import {Details} from "./Details"
 
-export function RadioGroup({ name, options, onChange }) {
+export function RadioGroup({ children, name, onChange }) {
   const [selectedValue, setSelectedValue] = useState("empty");
-  const handleChange = (e) => {
-    setSelectedValue(e.target.value);
+  const handleChange = (value) => {
+    setSelectedValue(value);
     if (onChange) {
-      onChange(e.target.value);
+      onChange(value);
     }
   };
+
+  const contextValue = {
+    name,
+    selectedValue,
+    onChange: handleChange
+  }
+
   return (
     <div
       style={{
@@ -16,19 +26,13 @@ export function RadioGroup({ name, options, onChange }) {
         alignItems: "flex start",
       }}
     >
-      {options.map((option) => (
-        <label key={option}>
-          <input
-            type="radio"
-            name={name}
-            value={option}
-            checked={selectedValue === option}
-            onChange={handleChange}
-          />
-          {option}
-        </label>
-      ))}
+      <RadioGroupContext.Provider value={contextValue}>
+        {children}
+      </RadioGroupContext.Provider>
       <p>{selectedValue}</p>
     </div>
   );
 }
+
+RadioGroup.Option = Option;
+RadioGroup.Details = Details;

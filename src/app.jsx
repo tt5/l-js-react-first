@@ -61,16 +61,22 @@ function Main() {
     <main style={style}>
       <Header />
       <h1>Hello</h1>
-      <RadioGroup
-        name="some"
-        options={["one", "two"]}
-        onChange={onChange("some")}
-      />
-      <RadioGroup
-        name="more"
-        options={["one", "two"]}
-        onChange={onChange("more")}
-      />
+      <RadioGroup name="group1" onChange={onChange("group1")}>
+        <RadioGroup.Option value="one">one</RadioGroup.Option>
+        <RadioGroup.Option value="two">two</RadioGroup.Option>
+      </RadioGroup>
+      <RadioGroup name="group2" onChange={onChange("group2")}>
+        <RadioGroup.Option value="one">one</RadioGroup.Option>
+        <RadioGroup.Option value="two" icon="☺" isPopular>
+          two
+          <RadioGroup.Details>
+            <select name="two_more">
+              <option>a</option>
+              <option>b</option>
+            </select>
+          </RadioGroup.Details>
+        </RadioGroup.Option>
+      </RadioGroup>
     </main>
   );
 }
