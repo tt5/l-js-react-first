@@ -1,22 +1,11 @@
-import React, { useState } from "react";
-import {RadioGroupContext} from "./contexts"
-import {Option} from "./Option"
-import {Details} from "./Details"
+import React from "react";
+import { RadioGroupContext } from "./contexts";
+import { Option } from "./Option";
+import { Details } from "./Details";
+import { useContextValue } from "./useContextValue";
 
 export function RadioGroup({ children, name, onChange }) {
-  const [selectedValue, setSelectedValue] = useState("empty");
-  const handleChange = (value) => {
-    setSelectedValue(value);
-    if (onChange) {
-      onChange(value);
-    }
-  };
-
-  const contextValue = {
-    name,
-    selectedValue,
-    onChange: handleChange
-  }
+  const contextValue = useContextValue({ name, onChange });
 
   return (
     <div
@@ -28,8 +17,8 @@ export function RadioGroup({ children, name, onChange }) {
     >
       <RadioGroupContext.Provider value={contextValue}>
         {children}
+        {contextValue.selectedValue}
       </RadioGroupContext.Provider>
-      <p>{selectedValue}</p>
     </div>
   );
 }
