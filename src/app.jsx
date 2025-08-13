@@ -67,16 +67,17 @@ function Main() {
       </RadioGroup>
       <RadioGroup name="group2" onChange={onChange("group2")}>
         <RadioGroup.Option value="one">one</RadioGroup.Option>
-        <RadioGroup.Option value="two" icon="☺" isPopular>
+        <RadioGroup.Option value="two-empty" icon="☺" isPopular>
           two
           <RadioGroup.Details>
-            <select name="two_more">
-              <option>a</option>
-              <option>b</option>
-            </select>
+            <RadioGroup name="group2-1" onChange={onChange("group2-1")}>
+              <RadioGroup.Option value="one">one</RadioGroup.Option>
+              <RadioGroup.Option value="two">two</RadioGroup.Option>
+            </RadioGroup>
           </RadioGroup.Details>
         </RadioGroup.Option>
       </RadioGroup>
+      {JSON.stringify(data)}
     </main>
   );
 }
