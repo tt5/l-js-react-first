@@ -1,16 +1,13 @@
 import React from "react"
 
 export function Form() {
-  function handleSubmit(event) {
-    event.preventDefault()
-    const formEl = event.currentTarget
-    const data = new FormData(formEl)
+  function submit(data) {
     const one = data.get("one")
     console.log(one)
   }
   return (
     <>
-      <form onSubmit={handleSubmit} method="post">
+      <form action={submit}>
     <label>one:
         <input name="one" type="text" />
     </label>
