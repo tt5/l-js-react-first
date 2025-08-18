@@ -1,6 +1,7 @@
 import React, { useState, useCallback, memo } from "react";
 import { createContext, useContextSelector } from "use-context-selector";
 import { RadioGroup } from "./radiogroup";
+import { Form } from "./components/form";
 
 const DarkModeContext = createContext({});
 
@@ -78,6 +79,7 @@ function Main() {
         </RadioGroup.Option>
       </RadioGroup>
       {JSON.stringify(data)}
+    <Form />
     </main>
   );
 }
