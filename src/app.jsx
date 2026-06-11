@@ -1,29 +1,23 @@
-import React, { useState, useCallback, memo } from "react";
-import { createContext, useContextSelector } from "use-context-selector";
+import React, { useState, useEffect, memo, useRef } from "react";
 import { RadioGroup } from "./radiogroup";
 import { Form } from "./components/form";
+import { DarkModeToggleButton } from "./components/DarkModeToggleButton";
+import { Button } from "./components/Button";
+import {DarkModeProvider, useDarkMode} from "./contexts/DarkModeContext"
 
-const DarkModeContext = createContext({});
-
-function Button({ children, ...rest }) {
-  const isDarkMode = useDarkMode((ctx) => ctx.isDarkMode);
-  const style = {
-    backgroundColor: isDarkMode ? "#333" : "#CCC",
-    border: "1px solid",
-    color: "inherit",
-  };
-
-  return (
-    <button style={style} {...rest}>
-      {children}
-    </button>
-  );
-}
-
-function ToggleButton() {
+const ToggleButton = memo(function ToggleButton() {
   const toggle = useDarkMode((ctx) => ctx.toggle);
-  return <Button onClick={toggle}>Colortheme</Button>;
-}
+  const isDarkMode = useDarkMode((ctx) => ctx.isDarkMode);
+  const btnRef = useRef(null);
+
+  useEffect(() => {
+    btnRef.current?.focus();
+  }, []);
+
+  return <DarkModeToggleButton ref={btnRef} onClick={toggle}>
+    {isDarkMode ? "☀️ Light" : "🌙 Dark"}
+    </DarkModeToggleButton>;
+});
 
 const Header = memo(function Header() {
   const style = {
@@ -82,24 +76,6 @@ function Main() {
     <Form />
     </main>
   );
-}
-
-function DarkModeProvider({ children }) {
-  const [isDarkMode, setDarkMode] = useState(false);
-  const toggle = useCallback(() => setDarkMode((v) => !v), []);
-  const contextValue = {
-    isDarkMode,
-    toggle,
-  };
-  return (
-    <DarkModeContext.Provider value={contextValue}>
-      {children}
-    </DarkModeContext.Provider>
-  );
-}
-
-function useDarkMode(selector) {
-  return useContextSelector(DarkModeContext, selector);
 }
 
 export default function App() {
